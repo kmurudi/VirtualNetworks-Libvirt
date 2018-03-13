@@ -1,0 +1,42 @@
+- hosts: localhost
+  gather_facts: no
+  
+  ## Package installations    
+  tasks:
+  - name: Check for qemu-kvm
+    apt:
+      name: qemu-kvm
+      state: present
+      
+  - name: Check for libvirt packages and ovs
+    apt:
+      name: "{{ item }}"
+      state: present
+    with_items:
+      - libvirt-bin
+      - virt-manager
+      - virt-viewer
+      - virtinst  
+      - openvswitch-switch	
+      
+  - name: Create an OvS bridge
+    openvswitch_bridge:
+      bridge: sw1
+      state: present
+      
+  - name: Create an OvS bridge
+    openvswitch_bridge:
+      bridge: sw2
+      state: present
+  
+  - name: Create an OvS bridge
+    openvswitch_bridge:
+      bridge: sw3
+      state: present
+      
+  - name: Create an OvS bridge
+    openvswitch_bridge:
+      bridge: sw4
+      state: present
+      
+       
